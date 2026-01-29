@@ -76,6 +76,22 @@ const token = await genToken(user._id)
 
 
    }catch(err){
+     console.log(" Login error")
+        return res.status(500).json({ message: `Login error ${err}` })
+    
 
    }
+}
+
+
+export const userLogout=async (req,res) => {
+    try{
+
+res.clearCookie("token")
+return res.status(200).json({message:"You are Logout"})
+    }catch(err){
+ console.log("error")
+        return res.status(500).json({ message: `Logout error ${err}` })
+    }
+    
 }
