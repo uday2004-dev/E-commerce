@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from "../assets/fevicon.png"
 import { useNavigate } from 'react-router-dom'
 import google from "../assets/googleimg.png"
 import { BsFillEyeSlashFill } from "react-icons/bs";
 
 import { IoEyeSharp } from "react-icons/io5";
+import { authDataContext } from '../context/authContext';
 
 const Register = () => {
 
     const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
+    const{serverUrl}=useContext(authDataContext)
 
     return (
         <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">

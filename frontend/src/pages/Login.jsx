@@ -47,11 +47,7 @@ const Login = () => {
                         </div>
                         <div className="w-[90%] h-[400px] flex flex-col items-center justify-center gap-[15px] relative ">
 
-                            <input
-                                type="text"
-                                className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
-                                placeholder="User Name"
-                            />
+                        
                             <input
                                 type="text"
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
@@ -66,12 +62,12 @@ const Login = () => {
 
                             {show ? (
                                 <BsFillEyeSlashFill
-                                    className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] top-1/2 -translate-y-1/2"
+                                    className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] bottom-[56%] "
                                     onClick={() => setShow(prev => !prev)}
                                 />
                             ) : (
                                 <IoEyeSharp
-                                    className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] top-1/2 -translate-y-1/2"
+                                    className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] bottom-[56%] "
                                     // onClick={() => setShow(true)}
                                     onClick={() => setShow(prev => !prev)}
                                 />
@@ -81,8 +77,8 @@ const Login = () => {
 
 
 
-                            <button className='w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center justify-center mt-[20px] text-[17px] font-semibold cursor-pointer'>Create Account</button>
-                            <p className="gap-[10px]">Do you have any other account?  <span className="text-[#5555f6cf] text-[17px] font-semibold cursor-pointer" onClick={() => navigate("/login")}>Login</span></p>
+                            <button className='w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center justify-center mt-[20px] text-[17px] font-semibold cursor-pointer'>LogIn</button>
+                            <p className="gap-[10px]">New account?  <span className="text-[#5555f6cf] text-[17px] font-semibold cursor-pointer" onClick={() => navigate("/signup")}>Create New Account</span></p>
                         </div>
 
 
