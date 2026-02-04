@@ -4,12 +4,33 @@ import { useNavigate } from 'react-router-dom'
 import google from "../assets/googleimg.png"
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { useState } from 'react';
+import axios from 'axios';
+import { useContext } from 'react';
+import { authDataContext } from '../context/AuthContext';
+// import serverUrl from '../context/AuthContext'
+
 
 import { IoEyeSharp } from "react-icons/io5";
 const Login = () => {
+      const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await axios.post(serverUrl + '/api/auth/userlogin', {
+                email, password
+            }, { withCredentials: true })
+            console.log(result.data)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
 
     return (
         <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">
@@ -31,9 +52,9 @@ const Login = () => {
 
                 {/* FORM BOX */}
                 <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <form action="" className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
+                    <form action="" onSubmit={handleLogin} className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
                         <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer">
-                            <img className="w-[20px]" src={google} alt="" />Registration with Google
+                            <img className="w-[20px]" src={google} alt="" />Login with Google
                         </div>
                         <div className="w-[100%] h-[20px] flex items-center justify-center gap-[10px]">
 
@@ -47,16 +68,20 @@ const Login = () => {
                         </div>
                         <div className="w-[90%] h-[400px] flex flex-col items-center justify-center gap-[15px] relative ">
 
-                        
+
                             <input
                                 type="text"
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
                                 placeholder="User Email"
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value) }}
                             />
                             <input
                                 type={show ? "text" : "password"}
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
                                 placeholder="User Password"
+                                value={password}
+                                onChange={(e) => { setPassword(e.target.value) }}
                             />
 
 

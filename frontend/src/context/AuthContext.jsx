@@ -1,20 +1,36 @@
+// import React, { createContext } from 'react'
+
+// export const authDataContext=createContext()
+
+// const AuthContext = ({children}) => {
+// const serverUrl="http://localhost:3000"
+//     const value={
+// serverUrl
+//     }
+//   return (
+
+//     <div>
+//         <authDataContext.Provider value={authDataContext}>
+
+//             {children}
+//         </authDataContext.Provider>
+//     </div>
+//   )
+// }
+
+// export default AuthContext
+
 import React, { createContext } from 'react'
 
-export const authDataContext=createContext()
+export const authDataContext = createContext()
 
-const AuthContext = ({children}) => {
-const serverUrl="http://localhost:3000"
-    const value={
-serverUrl
-    }
+const AuthContext = ({ children }) => {
+  const serverUrl = "http://localhost:3000"
+
   return (
-
-    <div>
-        <authDataContext.Provider value={value}>
-
-            {children}
-        </authDataContext.Provider>
-    </div>
+    <authDataContext.Provider value={{ serverUrl }}>
+      {children}
+    </authDataContext.Provider>
   )
 }
 

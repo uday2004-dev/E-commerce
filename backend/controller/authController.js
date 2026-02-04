@@ -37,7 +37,14 @@ export const userRegister = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ message: "User Register" })
+        return res.status(201).json({ 
+            message: "User Register",
+            user:{
+                id:user._id,
+                name:user.name,
+                email:user.email
+            }
+         })
 
 
     } catch (err) {
@@ -72,7 +79,13 @@ const token = await genToken(user._id)
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ message: "User Login" })
+        return res.status(201).json({ message: "User Login" ,
+                user:{
+                id:user._id,
+                name:user.name,
+                email:user.email
+            }
+        })
 
 
    }catch(err){

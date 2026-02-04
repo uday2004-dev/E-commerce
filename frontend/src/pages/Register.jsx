@@ -3,16 +3,31 @@ import Logo from "../assets/fevicon.png"
 import { useNavigate } from 'react-router-dom'
 import google from "../assets/googleimg.png"
 import { BsFillEyeSlashFill } from "react-icons/bs";
-
+import axios from "axios"
 import { IoEyeSharp } from "react-icons/io5";
-import { authDataContext } from '../context/authContext';
+import { authDataContext } from '../context/AuthContext';
 
 const Register = () => {
 
     const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
-    const{serverUrl}=useContext(authDataContext)
+    const { serverUrl } = useContext(authDataContext)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const handleSignup = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await axios.post(serverUrl + '/api/auth/userRegister', {
+                name, email, password
+            }, { withCredentials: true })
+            console.log(result)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
 
     return (
         <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">
@@ -34,7 +49,7 @@ const Register = () => {
 
                 {/* FORM BOX */}
                 <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex flex-col items-center justify-center">
-                    <form action="" className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
+                    <form action="" onSubmit={handleSignup} className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
                         <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer">
                             <img className="w-[20px]" src={google} alt="" />Registration with Google
                         </div>
@@ -54,29 +69,35 @@ const Register = () => {
                                 type="text"
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
                                 placeholder="User Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                             <input
                                 type="text"
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
                                 placeholder="User Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <input
                                 type={show ? "text" : "password"}
                                 className="w-full h-[50px] border-2 border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold outline-none"
                                 placeholder="User Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
-                         
+
 
                             {show ? (
                                 <BsFillEyeSlashFill
                                     className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] top-1/2 -translate-y-1/2"
-                                    onClick={() => setShow(prev=>!prev)}
+                                    onClick={() => setShow(prev => !prev)}
                                 />
                             ) : (
                                 <IoEyeSharp
                                     className="w-[20px] h-[20px] cursor-pointer absolute right-[5%] top-1/2 -translate-y-1/2"
                                     // onClick={() => setShow(true)}
-                                    onClick={() => setShow(prev=>!prev)}
+                                    onClick={() => setShow(prev => !prev)}
                                 />
                             )}
 
