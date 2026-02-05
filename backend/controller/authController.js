@@ -37,14 +37,14 @@ export const userRegister = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ 
+        return res.status(201).json({
             message: "User Register",
-            user:{
-                id:user._id,
-                name:user.name,
-                email:user.email
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
             }
-         })
+        })
 
 
     } catch (err) {
@@ -58,20 +58,19 @@ export const userRegister = async (req, res) => {
 
 
 
- export const userLogin = async (req, res) => {
+export const userLogin = async (req, res) => {
 
-   try{
-const {email,password}=req.body
-const user=await User.findOne({email})
-if(!user){
-    return res.status(400).json({message:"User not found"})
-}
-const isMatch = await bcrypt.compare(password,user.password)
-
-if(!isMatch){
-return res.status(400).json({message:"Password is not matching"})
-}
-const token = await genToken(user._id)
+    try {
+        const { email, password } = req.body
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).json({ message: "User not found" })
+        }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            return res.status(400).json({ message: "Password is not matching" })
+        }
+        const token = await genToken(user._id)
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
@@ -79,32 +78,105 @@ const token = await genToken(user._id)
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ message: "User Login" ,
-                user:{
-                id:user._id,
-                name:user.name,
-                email:user.email
+        return res.status(201).json({
+            message: "User Login",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
             }
         })
 
 
-   }catch(err){
-     console.log(" Login error")
+    } catch (err) {
+        console.log(" Login error")
         return res.status(500).json({ message: `Login error ${err}` })
-    
 
-   }
+
+    }
 }
 
 
-export const userLogout=async (req,res) => {
-    try{
+export const userLogout = async (req, res) => {
+    try {
 
-res.clearCookie("token")
-return res.status(200).json({message:"You are Logout"})
-    }catch(err){
- console.log("error")
+        res.clearCookie("token")
+        return res.status(200).json({ message: "You are Logout" })
+    } catch (err) {
+        console.log("error")
         return res.status(500).json({ message: `Logout error ${err}` })
     }
-    
+
+
+}
+
+
+// export const googLogin = async (req, res) => {
+
+//     try {
+
+//         let { name, email } = req.body
+//         const user = await User.findOne({ email })
+//         if (!user) {
+//             user = await User.create({ name, email })
+//         }
+
+//         const token = await genToken(user._id)
+//         res.cookie("token", token, {
+//             httpOnly: true,
+//             secure: false,
+//             sameSite: "Strict",
+//             maxAge: 7 * 24 * 60 * 60 * 1000
+//         })
+
+//         return res.status(200).json({
+//             message: "User Login",
+//             user: {
+//                 id: user._id,
+//                 name: user.name,
+//                 email: user.email
+//             }
+//         })
+
+
+//     } catch (err) {
+//         console.log(" googleLogin error")
+//         return res.status(500).json({ message: `googleLogin error ${err}` })
+//     }
+
+// }
+
+
+export const googLogin = async (req, res) => {
+  try {
+    let { name, email } = req.body
+
+    let user = await User.findOne({ email }) // 👈 let
+
+    if (!user) {
+      user = await User.create({ name, email })
+    }
+
+    const token = await genToken(user._id)
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    })
+
+    return res.status(200).json({
+      message: "User Login",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    })
+
+  } catch (err) {
+    console.log("googleLogin error", err)
+    return res.status(500).json({ message: "googleLogin error" })
+  }
 }

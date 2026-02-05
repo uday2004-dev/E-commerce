@@ -6,6 +6,8 @@ import { BsFillEyeSlashFill } from "react-icons/bs";
 import axios from "axios"
 import { IoEyeSharp } from "react-icons/io5";
 import { authDataContext } from '../context/AuthContext';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../utils/firebase';
 
 const Register = () => {
 
@@ -29,6 +31,23 @@ const Register = () => {
 
     }
 
+    const googleSignup = async (params) => {
+        try {
+            const response = await signInWithPopup(auth, provider)
+            // console.log(response)
+            let user = response.user
+            let name = user.displayName
+            let email = user.email
+
+            const result = await axios.post(serverUrl + "/api/auth/googleLogin", {
+                name, email
+            }, { withCredentials: true })
+            console.log(result.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">
 
@@ -50,17 +69,13 @@ const Register = () => {
                 {/* FORM BOX */}
                 <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex flex-col items-center justify-center">
                     <form action="" onSubmit={handleSignup} className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
-                        <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer">
+                        <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer" onClick={googleSignup}>
                             <img className="w-[20px]" src={google} alt="" />Registration with Google
                         </div>
                         <div className="w-[100%] h-[20px] flex items-center justify-center gap-[10px]">
 
                             <div className="w-[40%] h-[1px] bg-[#969635]"> </div>
-
-
-
                             OR
-
                             <div className="w-[40%] h-[1px] bg-[#969635]"> </div>
                         </div>
                         <div className="w-[90%] h-[400px] flex flex-col items-center justify-center gap-[15px] relative ">

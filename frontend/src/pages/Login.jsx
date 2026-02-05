@@ -7,8 +7,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useContext } from 'react';
 import { authDataContext } from '../context/AuthContext';
-// import serverUrl from '../context/AuthContext'
-
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../utils/firebase';
 
 import { IoEyeSharp } from "react-icons/io5";
 const Login = () => {
@@ -32,6 +32,24 @@ const Login = () => {
 
     }
 
+    const googleLogin = async (params) => {
+            try {
+                const response = await signInWithPopup(auth, provider)
+                // console.log(response)
+                let user = response.user
+                let name = user.displayName
+                let email = user.email
+    
+                const result = await axios.post(serverUrl + "/api/auth/googleLogin", {
+                    name, email
+                }, { withCredentials: true })
+                console.log(result.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    
+
     return (
         <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">
 
@@ -53,7 +71,7 @@ const Login = () => {
                 {/* FORM BOX */}
                 <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex flex-col items-center justify-center">
                     <form action="" onSubmit={handleLogin} className='w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]'>
-                        <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer">
+                        <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer" onClick={googleLogin}>
                             <img className="w-[20px]" src={google} alt="" />Login with Google
                         </div>
                         <div className="w-[100%] h-[20px] flex items-center justify-center gap-[10px]">

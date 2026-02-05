@@ -5,11 +5,12 @@ import cookieParser from "cookie-parser"
 import userRoute from "./routes/userRegisterRoute.js"
 dotenv.config()
 import cors from "cors"
+import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config()
 
 const app = express()
-const port = process.env.PORT || 6000
+const port = process.env.PORT || 3000
 
 
 
@@ -22,10 +23,15 @@ app.use(cors({
 ))
 
 
+
+
 app.use("/api/auth", userRoute)
 app.get("/", (req, res) => {
   res.send("Home page")
 })
+
+app.use("/api/user",userRoutes)
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
