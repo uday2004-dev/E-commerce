@@ -8,6 +8,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import { authDataContext } from '../context/AuthContext';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/firebase';
+import { userDataContext } from '../context/UserContext';
 
 const Register = () => {
 
@@ -18,13 +19,18 @@ const Register = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+        const {getCurrentUser}=useContext(userDataContext)
     const handleSignup = async (e) => {
         e.preventDefault()
         try {
             const result = await axios.post(serverUrl + '/api/auth/userRegister', {
                 name, email, password
             }, { withCredentials: true })
-            console.log(result)
+    
+              console.log(result.data)
+            getCurrentUser()
+            navigate('/')
         } catch (err) {
             console.log(err)
         }

@@ -11,6 +11,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/firebase';
 
 import { IoEyeSharp } from "react-icons/io5";
+import { userDataContext } from '../context/UserContext';
 const Login = () => {
       const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
@@ -19,6 +20,8 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const {getCurrentUser}=useContext(userDataContext)
+
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
@@ -26,6 +29,8 @@ const Login = () => {
                 email, password
             }, { withCredentials: true })
             console.log(result.data)
+            getCurrentUser()
+            navigate('/')
         } catch (err) {
             console.log(err)
         }

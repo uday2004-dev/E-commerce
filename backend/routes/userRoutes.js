@@ -4,9 +4,9 @@ import { getCurrentUser } from "../controller/userController.js"
 
 
 
-let userRoutes=express.Router
+let userRoutes=express.Router()
 
-userRoutes("/getCurrentUser",isAuth,getCurrentUser)
+userRoutes.post("/getCurrentUser",isAuth,getCurrentUser)
 
 
 
