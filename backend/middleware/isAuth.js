@@ -7,7 +7,7 @@ const isAuth=(req,res,next)=>{
         if(!token){
             return res.status(400).json({message:"User not have token"})
         }
-
+ 
         const verifyToken=jwt.verify(token,process.env.JWT_SECRET)
 
         if(!verifyToken){

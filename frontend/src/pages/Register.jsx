@@ -20,15 +20,15 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-        const {getCurrentUser}=useContext(userDataContext)
+    const { getCurrentUser } = useContext(userDataContext)
     const handleSignup = async (e) => {
         e.preventDefault()
         try {
             const result = await axios.post(serverUrl + '/api/auth/userRegister', {
                 name, email, password
             }, { withCredentials: true })
-    
-              console.log(result.data)
+
+            console.log(result.data)
             getCurrentUser()
             navigate('/')
         } catch (err) {
@@ -55,7 +55,7 @@ const Register = () => {
     }
 
     return (
-        <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white">
+        <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] text-white flex flex-col items-center justify-start">
 
             {/* HEADER */}
             <div
@@ -63,7 +63,7 @@ const Register = () => {
                 onClick={() => navigate("/")}
             >
                 <img className='w-[40px]' src={Logo} alt="" />
-                <h1 className='text-[22px]'>Shopping Cart</h1>
+                <h1 className='text-[22px] font-sans  '>Shopping Cart</h1>
             </div>
 
             {/* CENTER CONTENT */}
