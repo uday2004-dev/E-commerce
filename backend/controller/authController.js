@@ -111,47 +111,13 @@ export const userLogout = async (req, res) => {
 }
 
 
-// export const googLogin = async (req, res) => {
-
-//     try {
-
-//         let { name, email } = req.body
-//         const user = await User.findOne({ email })
-//         if (!user) {
-//             user = await User.create({ name, email })
-//         }
-
-//         const token = await genToken(user._id)
-//         res.cookie("token", token, {
-//             httpOnly: true,
-//             secure: false,
-//             sameSite: "Strict",
-//             maxAge: 7 * 24 * 60 * 60 * 1000
-//         })
-
-//         return res.status(200).json({
-//             message: "User Login",
-//             user: {
-//                 id: user._id,
-//                 name: user.name,
-//                 email: user.email
-//             }
-//         })
-
-
-//     } catch (err) {
-//         console.log(" googleLogin error")
-//         return res.status(500).json({ message: `googleLogin error ${err}` })
-//     }
-
-// }
 
 
 export const googLogin = async (req, res) => {
   try {
     let { name, email } = req.body
 
-    let user = await User.findOne({ email }) // 👈 let
+    let user = await User.findOne({ email }) 
 
     if (!user) {
       user = await User.create({ name, email })

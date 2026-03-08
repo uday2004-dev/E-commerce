@@ -1,25 +1,17 @@
-import { getAuth, GoogleAuthProvider } from "firebase/auth"
+
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey:import.meta.env.VITE_FIREBASE_APIKEY ,
-  authDomain: "logincard.firebaseapp.com",
-  projectId: "logincard",
-  storageBucket: "logincard.firebasestorage.app",
-  messagingSenderId: "1064796708491",
-  appId: "1:1064796708491:web:ce79f739984651ba29fe8e"
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
+  authDomain: "loginshoppingcart-ea5d9.firebaseapp.com",
+  projectId: "loginshoppingcart-ea5d9",
+  storageBucket: "loginshoppingcart-ea5d9.firebasestorage.app",
+  messagingSenderId: "518858725251",
+  appId: "1:518858725251:web:1a385419fccc1150d588b6"
 };
 
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth=getAuth(app)
-
-
-const provider=new GoogleAuthProvider()
-
-
-export  {auth,provider}
+const provider=new GoogleAuthProvider 
+export {auth,provider}
