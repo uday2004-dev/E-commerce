@@ -31,7 +31,7 @@ const Nav = () => {
         {!showSearch && <IoSearchCircleOutline className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => setShowSearch(prev => !prev)} />}
         {showSearch && <IoSearchCircleSharp className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => setShowSearch(prev => !prev)} />}
         {!userdata && <CgProfile className='w-[30px] h-[30px] text-[#000000] cursor-pointer' />}
-        {userdata && <div className="w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center cursor-pointer" onClick={()=>setProfile(prev=>!prev)}>
+        {userdata && <div className="w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center cursor-pointer" onClick={() => setProfile(prev => !prev)}>
           {
             userdata?.name.slice(0, 1)
           }</div>}
@@ -43,14 +43,17 @@ const Nav = () => {
       {showSearch && <div className="w-[100%] h-[80px] bg-[#d8f6f9dd] absolute top-[100%] left-0 right-0 flex items-center justify-center">
         <input type="text" className='w-[50%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search here' />
       </div>}
-{/* 
-     {profile&& <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border-[1px] border-[#aaa9a9] rounded-[10px] z-10'>
-        
-      </div>} */}
-{profile && (
-  <div className="absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border border-[#aaa9a9] rounded-[10px] z-20">
-  </div>
-)}
+
+      {profile && (
+        <div className="absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border border-[#aaa9a9] rounded-[10px] z-20">
+          <ul>
+            <li>Login</li>
+            <li>LogOut</li>
+            <li>Orders</li>
+            <li>About</li>
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
